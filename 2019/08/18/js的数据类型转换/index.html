@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Asha&#39;s blog">
 <meta property="og:description" content="前言js是编译型语言，在运算的时候，会对数据类型做转换再进行计算。 基本概念js类型7 种原始类型：(值不会变)BooleanNullUndefinedNumberBigIntStringSymbol 引用类型：Object valueOf() 与 toString()valueOf()返回对象的原始值。默认情况下，valueOf方法由Object后面的每个对象继承。 每个内置的核心对象都会覆盖此">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-18T13:38:37.700Z">
+<meta property="og:updated_time" content="2019-09-27T07:51:57.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js的数据类型转换 | Asha&#39;s blog">
 <meta name="twitter:description" content="前言js是编译型语言，在运算的时候，会对数据类型做转换再进行计算。 基本概念js类型7 种原始类型：(值不会变)BooleanNullUndefinedNumberBigIntStringSymbol 引用类型：Object valueOf() 与 toString()valueOf()返回对象的原始值。默认情况下，valueOf方法由Object后面的每个对象继承。 每个内置的核心对象都会覆盖此">
@@ -181,7 +181,45 @@ classes that you can use:
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="js类型"><a href="#js类型" class="headerlink" title="js类型"></a>js类型</h4><p>7 种原始类型：(值不会变)<br><code>Boolean</code><br><code>Null</code><br><code>Undefined</code><br><code>Number</code><br><code>BigInt</code><br><code>String</code><br><code>Symbol</code></p>
 <p>引用类型：<br><code>Object</code></p>
 <h4 id="valueOf-与-toString"><a href="#valueOf-与-toString" class="headerlink" title="valueOf() 与 toString()"></a><code>valueOf()</code> 与 <code>toString()</code></h4><h5 id="valueOf-NaN"><a href="#valueOf-NaN" class="headerlink" title="valueOf()"></a>valueOf()</h5><p>返回对象的原始值。默认情况下，valueOf方法由Object后面的每个对象继承。 每个内置的核心对象都会覆盖此方法以返回适当的值。<br>如果对象没有原始值，则valueOf将返回对象本身。但是！！！！JavaScript的许多内置对象都重写了该函数，以实现更适合自身的功能需要。<br>因此，不同类型对象的valueOf()方法的返回值和返回值类型均可能不同。</p>
-<p>不同类型对象的valueOf()方法的返回值：<br>对象 | 返回cat<br>—-|——<br>Array | 返回数组对象本身。<br>Boolean    | 布尔值。<br>Date    |    存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC。<br>Function | 函数本身。<br>Number    | 数字值。<br>Object        | 对象本身。这是默认情况。<br>String        | 字符串值。</p>
+<p>不同类型对象的valueOf()方法的返回值：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>返回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Array</td>
+<td>返回数组对象本身。</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>布尔值。</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC。</td>
+</tr>
+<tr>
+<td>Function</td>
+<td>函数本身。</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>数字值。</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>对象本身。这是默认情况。</td>
+</tr>
+<tr>
+<td>String</td>
+<td>字符串值。</td>
+</tr>
+</tbody>
+</table>
 <h5 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h5><p>方法返回一个表示该对象的字符串。<br>默认情况下，toString() 方法被每个 Object 对象继承。如果此方法在自定义对象中未被覆盖，toString() 返回 <code>[object type]</code>，其中 type 是对象的类型。</p>
 <p>小技巧：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="number">2</span>]) <span class="comment">// [object Array]</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="强制转换"><a href="#强制转换" class="headerlink" title="强制转换"></a>强制转换</h3><h4 id="1-Number"><a href="#1-Number" class="headerlink" title="1. Number()"></a>1. Number()</h4><h5 id="规则："><a href="#规则：" class="headerlink" title="规则："></a>规则：</h5><ol>
