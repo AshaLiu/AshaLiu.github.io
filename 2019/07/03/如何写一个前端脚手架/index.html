@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="背景之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 package.json ，还要代码规范校验工具 eslint.js ， 还要 .gitignore ，还要 babel， 杂七杂八引入了之后，还要选择一下打包工具 麻烦！ 所以准备来写一个脚手架省省力。 ##">
+    <meta name="description" content="背景之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 package.json ，还要代码规范校验工具 eslint.js ， 还要 .gitignore ，还要 babel， 杂七杂八引入了之后，还要选择一下打包工具每次都要自己配#! /usr/bin/env node置。麻烦！ 所以准备来写一个脚手架省省">
 <meta name="keywords" content="脚手架 cli">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何写一个前端脚手架 | Asha&#39;s blog">
 <meta property="og:url" content="http://AshaLiu.github.io/2019/07/03/如何写一个前端脚手架/index.html">
 <meta property="og:site_name" content="Asha&#39;s blog">
-<meta property="og:description" content="背景之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 package.json ，还要代码规范校验工具 eslint.js ， 还要 .gitignore ，还要 babel， 杂七杂八引入了之后，还要选择一下打包工具 麻烦！ 所以准备来写一个脚手架省省力。 ##">
+<meta property="og:description" content="背景之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 package.json ，还要代码规范校验工具 eslint.js ， 还要 .gitignore ，还要 babel， 杂七杂八引入了之后，还要选择一下打包工具每次都要自己配#! /usr/bin/env node置。麻烦！ 所以准备来写一个脚手架省省">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-06T02:47:58.329Z">
+<meta property="og:updated_time" content="2019-10-14T07:25:12.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何写一个前端脚手架 | Asha&#39;s blog">
-<meta name="twitter:description" content="背景之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 package.json ，还要代码规范校验工具 eslint.js ， 还要 .gitignore ，还要 babel， 杂七杂八引入了之后，还要选择一下打包工具 麻烦！ 所以准备来写一个脚手架省省力。 ##">
+<meta name="twitter:description" content="背景之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 package.json ，还要代码规范校验工具 eslint.js ， 还要 .gitignore ，还要 babel， 杂七杂八引入了之后，还要选择一下打包工具每次都要自己配#! /usr/bin/env node置。麻烦！ 所以准备来写一个脚手架省省">
     
     
     
@@ -177,10 +177,22 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。<br>然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 <code>package.json</code> ，还要代码规范校验工具 <code>eslint.js</code> ， 还要 <code>.gitignore</code> ，还要 <code>babel</code>， 杂七杂八引入了之后，还要选择一下打包工具</p>
-<p>麻烦！</p>
-<p>所以准备来写一个脚手架省省力。</p>
-<p>##</p>
+    <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前写项目的时候写过需要抽离我的公用代码，发布到公司内部的npm仓库里。<br>然后我就发现初始化一个最最基础的工程项目也挺麻烦的。从空白目录，要 <code>package.json</code> ，还要代码规范校验工具 <code>eslint.js</code> ， 还要 <code>.gitignore</code> ，还要 <code>babel</code>， 杂七杂八引入了之后，还要选择一下打包工具<br>每次都要自己配#! /usr/bin/env node置。<br>麻烦！</p>
+<p>所以准备来写一个脚手架省省力。感觉还是挺有挑战性的，因为从来没有接触过写工具。一直以来都觉得写工具的人真的好牛逼。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><code>cli</code> -&gt; <code>Command Line Interface</code>，一种通过命令行来交互的工具。典型用的比较多的比如我就是 <code>vue-cli</code>。<br>这里扯一下另一个概念 <code>npm scripts</code>。这个也可以实现开发工作流，通过在 <code>package.json</code>的scripts对象上配置相关的npm命令。<br>不过这个是针对项目的，cli是全局安装的。</p>
+<h2 id="命令行辅助工具"><a href="#命令行辅助工具" class="headerlink" title="命令行辅助工具"></a>命令行辅助工具</h2><ol>
+<li>commander.js - 帮助解析参数</li>
+<li>chalk.js - 命令行输出自定义颜色，人机交互会好看点</li>
+<li>inquirer.js - 常见的交互式命令行，例如，问你选择创建什么类型的项目，如何用户移动上下箭头选择</li>
+</ol>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir angela-cli</span><br><span class="line">cd angela-cli</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个可执行文件"><a href="#创建一个可执行文件" class="headerlink" title="创建一个可执行文件"></a>创建一个可执行文件</h3><p>在 <code>angela-cli</code> 中新建一个 <code>bin</code> 文件夹，如何新建一个文件 <code>angela.js</code> 。在 <code>angela.js</code> 头部加上 <code>#! /usr/bin/env node</code>，表示这是一个可执行文件。<br>然后在 <code>package.json</code> 里的 <code>bin</code> 字段，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">    &quot;angela&quot;: &quot;bin/angela&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当用户全局安装这个 <code>angela-cli</code> 之后，直接在命令行执行 <code>angela</code>，就可以执行这个 <code>angela.js</code> 文件了。</p>
+<blockquote>
+<p>我们在写命令行工具的时候，需要指定一个可执行文件。在package.json中，bin字段用来映射命令名和可执行文件。在通过npm install -g全局安装的时候，npm会symlink可执行文件到prefix/bin文件夹。<br>  如果通过npm install本地安装的时候, npm会symlink可执行文件到./node_modules/.bin/文件夹。</p>
+</blockquote>
+<h3 id="mem-fs-editor-js"><a href="#mem-fs-editor-js" class="headerlink" title="mem-fs-editor.js"></a>mem-fs-editor.js</h3><p>因为我这个脚手架涉及到模板，然后如果直接用字符串拼接返回，这么多文件，会有点复杂和乱。所以搞了个这个，可以简单的使用ejs语法。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>剩下的就都是按照思路写代码了<br>(全部代码地址)[<a href="https://github.com/AshaLiu/angela-cli]" target="_blank" rel="noopener">https://github.com/AshaLiu/angela-cli]</a></p>
 
   </section>
 
