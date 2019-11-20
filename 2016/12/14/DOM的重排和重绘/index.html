@@ -7,26 +7,26 @@
     
 
     <title>
-      DOM的重排和重绘 | Asha&#39;s blog 
+      DOM的重排和重绘 | 扑通扑通&#39;s blog 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     
-      <meta name="author" content="Asha">
+      <meta name="author" content="扑通扑通">
     
     
 
     <meta name="description" content="1. 前言废话不多说，探究一下Dom渲染的本质。其实也是《高性能的javaScript》写的。浏览器中Dom的实现和javaScript是分开的，每次通过javaScript操作DOM都是需要付出十分昂贵的代价，所以我们只能想尽办法，减少操作DOM次数，尽量自己先在javaScript中实现 2. 由来当你浏览器下载完所有的组成元素，HTML标记啊，js啊，图片啊等等，浏览器会解析文件种下两个树，">
 <meta name="keywords" content="DOM渲染">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DOM的重排和重绘 | Asha&#39;s blog">
+<meta property="og:title" content="DOM的重排和重绘 | 扑通扑通&#39;s blog">
 <meta property="og:url" content="http://AshaLiu.github.io/2016/12/14/DOM的重排和重绘/index.html">
-<meta property="og:site_name" content="Asha&#39;s blog">
+<meta property="og:site_name" content="扑通扑通&#39;s blog">
 <meta property="og:description" content="1. 前言废话不多说，探究一下Dom渲染的本质。其实也是《高性能的javaScript》写的。浏览器中Dom的实现和javaScript是分开的，每次通过javaScript操作DOM都是需要付出十分昂贵的代价，所以我们只能想尽办法，减少操作DOM次数，尽量自己先在javaScript中实现 2. 由来当你浏览器下载完所有的组成元素，HTML标记啊，js啊，图片啊等等，浏览器会解析文件种下两个树，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-06T02:47:58.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DOM的重排和重绘 | Asha&#39;s blog">
+<meta name="twitter:title" content="DOM的重排和重绘 | 扑通扑通&#39;s blog">
 <meta name="twitter:description" content="1. 前言废话不多说，探究一下Dom渲染的本质。其实也是《高性能的javaScript》写的。浏览器中Dom的实现和javaScript是分开的，每次通过javaScript操作DOM都是需要付出十分昂贵的代价，所以我们只能想尽办法，减少操作DOM次数，尽量自己先在javaScript中实现 2. 由来当你浏览器下载完所有的组成元素，HTML标记啊，js啊，图片啊等等，浏览器会解析文件种下两个树，">
     
     
@@ -59,7 +59,7 @@
 
         
 
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Asha&#39;s blog</a></h1>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">扑通扑通&#39;s blog</a></h1>
         <hr class="panel-cover__divider">
 
         

@@ -7,26 +7,26 @@
     
 
     <title>
-      移动端返回顶部之分析函数防抖与节流 | Asha&#39;s blog 
+      移动端返回顶部之分析函数防抖与节流 | 扑通扑通&#39;s blog 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     
-      <meta name="author" content="Asha">
+      <meta name="author" content="扑通扑通">
     
     
 
     <meta name="description" content="前言最近项目手机端的项目需要一个滑屏超出一屏需要出现返回顶部的按钮，并且点击可以回到顶部且消失按钮。拿到需求之后，很简单嘛，随便写写，可是PC端写完测完之后，搬到手机上就开始KO了。按钮的隐藏和显示执行的很慢，到该到出现或者隐藏的时候会延迟好几秒才有动作。并且这是一个梗，手机在touchmove的时候不会渲染，一定要手指头拿开才行。然后我就百度百度百度~ 防抖(debounce)定义防抖技术就是把">
 <meta name="keywords" content="节流 防抖 返回顶部 debounce throttle">
 <meta property="og:type" content="article">
-<meta property="og:title" content="移动端返回顶部之分析函数防抖与节流 | Asha&#39;s blog">
+<meta property="og:title" content="移动端返回顶部之分析函数防抖与节流 | 扑通扑通&#39;s blog">
 <meta property="og:url" content="http://AshaLiu.github.io/2017/03/09/移动端返回顶部之分析函数防抖与节流/index.html">
-<meta property="og:site_name" content="Asha&#39;s blog">
+<meta property="og:site_name" content="扑通扑通&#39;s blog">
 <meta property="og:description" content="前言最近项目手机端的项目需要一个滑屏超出一屏需要出现返回顶部的按钮，并且点击可以回到顶部且消失按钮。拿到需求之后，很简单嘛，随便写写，可是PC端写完测完之后，搬到手机上就开始KO了。按钮的隐藏和显示执行的很慢，到该到出现或者隐藏的时候会延迟好几秒才有动作。并且这是一个梗，手机在touchmove的时候不会渲染，一定要手指头拿开才行。然后我就百度百度百度~ 防抖(debounce)定义防抖技术就是把">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-06T02:47:58.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="移动端返回顶部之分析函数防抖与节流 | Asha&#39;s blog">
+<meta name="twitter:title" content="移动端返回顶部之分析函数防抖与节流 | 扑通扑通&#39;s blog">
 <meta name="twitter:description" content="前言最近项目手机端的项目需要一个滑屏超出一屏需要出现返回顶部的按钮，并且点击可以回到顶部且消失按钮。拿到需求之后，很简单嘛，随便写写，可是PC端写完测完之后，搬到手机上就开始KO了。按钮的隐藏和显示执行的很慢，到该到出现或者隐藏的时候会延迟好几秒才有动作。并且这是一个梗，手机在touchmove的时候不会渲染，一定要手指头拿开才行。然后我就百度百度百度~ 防抖(debounce)定义防抖技术就是把">
     
     
@@ -59,7 +59,7 @@
 
         
 
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Asha&#39;s blog</a></h1>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">扑通扑通&#39;s blog</a></h1>
         <hr class="panel-cover__divider">
 
         
