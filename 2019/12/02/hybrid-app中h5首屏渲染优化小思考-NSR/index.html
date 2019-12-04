@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      hybrid app中h5首屏渲染优化小思考 - NSR | 扑通扑通&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="扑通扑通">
+    
+    
+
+    <meta name="description" content="前言这是今年GMTC北京场之后回来分享的一个ppt 背景&amp;amp;场景 app原⽣开发投⼊资源成本⾼ iOS审核难 需要版本升级才可以使新功能触达到⽤户 …  以上种种问题引发了 Hybrid APP 出现，且h5页面越来越多，从补充式到基本替代 当占有率提高了，该考虑 白屏 的问题了 渲染的方式&amp;amp;过程 优化方向native耗时，主要体现在webview壳子的准备上 提前准备WebView">
+<meta name="keywords" content="hybrid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hybrid app中h5首屏渲染优化小思考 - NSR | 扑通扑通&#39;s blog">
+<meta property="og:url" content="http://AshaLiu.github.io/2019/12/02/hybrid-app中h5首屏渲染优化小思考-NSR/index.html">
+<meta property="og:site_name" content="扑通扑通&#39;s blog">
+<meta property="og:description" content="前言这是今年GMTC北京场之后回来分享的一个ppt 背景&amp;amp;场景 app原⽣开发投⼊资源成本⾼ iOS审核难 需要版本升级才可以使新功能触达到⽤户 …  以上种种问题引发了 Hybrid APP 出现，且h5页面越来越多，从补充式到基本替代 当占有率提高了，该考虑 白屏 的问题了 渲染的方式&amp;amp;过程 优化方向native耗时，主要体现在webview壳子的准备上 提前准备WebView">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ashaliu.github.io/images/article/hybrid/render.jpg">
+<meta property="og:image" content="http://ashaliu.github.io/images/article/hybrid/11111.jpg">
+<meta property="og:image" content="http://ashaliu.github.io/images/article/hybrid/22222.jpg">
+<meta property="og:image" content="http://ashaliu.github.io/images/article/hybrid/333333.jpg">
+<meta property="og:updated_time" content="2019-12-04T04:54:54.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hybrid app中h5首屏渲染优化小思考 - NSR | 扑通扑通&#39;s blog">
+<meta name="twitter:description" content="前言这是今年GMTC北京场之后回来分享的一个ppt 背景&amp;amp;场景 app原⽣开发投⼊资源成本⾼ iOS审核难 需要版本升级才可以使新功能触达到⽤户 …  以上种种问题引发了 Hybrid APP 出现，且h5页面越来越多，从补充式到基本替代 当占有率提高了，该考虑 白屏 的问题了 渲染的方式&amp;amp;过程 优化方向native耗时，主要体现在webview壳子的准备上 提前准备WebView">
+<meta name="twitter:image" content="http://ashaliu.github.io/images/article/hybrid/render.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">扑通扑通&#39;s blog</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">hybrid app中h5首屏渲染优化小思考 - NSR</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2019-12-02" class="post-meta__date date">2019-12-02</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/hybrid/">hybrid</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是今年GMTC北京场之后回来分享的一个ppt</p>
+<h2 id="背景-amp-场景"><a href="#背景-amp-场景" class="headerlink" title="背景&amp;场景"></a>背景&amp;场景</h2><ol>
+<li>app原⽣开发投⼊资源成本⾼</li>
+<li>iOS审核难</li>
+<li>需要版本升级才可以使新功能触达到⽤户</li>
+<li>…</li>
+</ol>
+<p>以上种种问题引发了 <code>Hybrid APP</code> 出现，且h5页面越来越多，从补充式到基本替代</p>
+<p>当占有率提高了，该考虑 <code>白屏</code> 的问题了</p>
+<h2 id="渲染的方式-amp-过程"><a href="#渲染的方式-amp-过程" class="headerlink" title="渲染的方式&amp;过程"></a>渲染的方式&amp;过程</h2><p><img src="/images/article/hybrid/render.jpg" alt="渲染过程"></p>
+<h2 id="优化方向"><a href="#优化方向" class="headerlink" title="优化方向"></a>优化方向</h2><h3 id="native耗时，主要体现在webview壳子的准备上"><a href="#native耗时，主要体现在webview壳子的准备上" class="headerlink" title="native耗时，主要体现在webview壳子的准备上"></a>native耗时，主要体现在webview壳子的准备上</h3><ol>
+<li>提前准备WebView</li>
+<li>复用WebView</li>
+<li>…</li>
+</ol>
+<h3 id="webview耗时，主要体现在前端资源的准备上"><a href="#webview耗时，主要体现在前端资源的准备上" class="headerlink" title="webview耗时，主要体现在前端资源的准备上"></a>webview耗时，主要体现在前端资源的准备上</h3><ol>
+<li>CDN</li>
+<li>分包，只加载核⼼的</li>
+<li>⾸屏拆接⼝</li>
+<li>接⼝数据缓存，对于⽐较稳定的⻚⾯进来，先展示上次的数据，再请求接⼝做替换</li>
+<li>接⼝PreFetch</li>
+<li>甚⾄前端资源离线化，file://</li>
+<li>…</li>
+</ol>
+<h3 id="渲染耗时"><a href="#渲染耗时" class="headerlink" title="渲染耗时"></a>渲染耗时</h3><p><img src="/images/article/hybrid/11111.jpg" alt="渲染耗时"></p>
+<h2 id="前端渲染方式"><a href="#前端渲染方式" class="headerlink" title="前端渲染方式"></a>前端渲染方式</h2><ol>
+<li>CSR</li>
+<li><p>SSR</p>
+<p> 麻烦，要伸⼿到服务端，项⽬也多，并且不能对标Native渲染</p>
+</li>
+<li><p>PWA</p>
+<p> 3.1 http cache；https；</p>
+<p> 3.2 启动保活（分派进程，加载SW.js，启动线程）</p>
+<p> 3.3 在不同启动场景（浏览器重启，后台，锁屏…）</p>
+<p> 3.4 耗时100 - 1000ms</p>
+<p> 3.5 是⼀种优化，不是⽅式，不同维度</p>
+</li>
+<li><p>…?</p>
+</li>
+</ol>
+<h2 id="前端渲染新方式"><a href="#前端渲染新方式" class="headerlink" title="前端渲染新方式"></a>前端渲染新方式</h2><p>借助native的能⼒，模仿SSR的⼀种⽅式，也具备CSR的优点</p>
+<p>模板 + 数据 = 页面</p>
+<ol>
+<li>对于⾼流量⻚⾯，⽐如⻋辆详情⻚，制作模板，结构拿来复⽤</li>
+<li>甚⾄数据也可以借助native来prefetch</li>
+<li>把⽣成html string的动作交给native</li>
+</ol>
+<h3 id="NSR-模板"><a href="#NSR-模板" class="headerlink" title="NSR - 模板"></a>NSR - 模板</h3><p>对native的诉求</p>
+<ol>
+<li>凡有native参与的动作，都需要考虑动态性，模板可以内置or下载</li>
+<li>data prefetch的策略，提⾼命中率</li>
+<li>在要渲染的h5⻚⾯中，约定占位符标记，native render后替换</li>
+<li>最⼩化模板，可以抽离出最⼩化的没有vdom但保留最⼩组件周期的库来⽀持渲染</li>
+<li>⾸屏仅使⽤兼容ES5的语，避免引⼊polyfill，⾮⾸屏不限制</li>
+<li>⾸屏只做渲染，所包含事件绑定、统计上报等逻辑全部移到异步chunk中</li>
+<li>…</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="三种渲染方式的区别"><a href="#三种渲染方式的区别" class="headerlink" title="三种渲染方式的区别"></a>三种渲染方式的区别</h3><p><img src="/images/article/hybrid/22222.jpg" alt="渲染区别"></p>
+<h3 id="预渲染的延伸"><a href="#预渲染的延伸" class="headerlink" title="预渲染的延伸"></a>预渲染的延伸</h3><p><img src="/images/article/hybrid/333333.jpg" alt="预渲染延伸"></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>整个优化过程，论写代码的话基本是native的同学在写，但是思考的角度却是从前端的角度出发的。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

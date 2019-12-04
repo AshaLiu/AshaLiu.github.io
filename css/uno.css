@@ -1196,8 +1196,8 @@ hr {
   width: 100%;
   max-width: none;
   height: 100%;
-  /*background: url(../images/background-cover.jpg) top left no-repeat #666666;*/
-    background: #0f464c;
+  background: url(../images/background-cover.jpg) top left no-repeat #666666;
+  /*  background: #0f464c;*/
   background-size: cover; }
 
 .panel-cover--collapsed {
